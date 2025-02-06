@@ -1,0 +1,216 @@
+/* main.aspx */
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="main.aspx.cs" Inherits="main" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Welcome to the ASP.NET Application</h1>
+    <ul>
+        <li><a href="factorial.aspx">Factorial Calculator</a></li>
+        <li><a href="evenodd.aspx">Check Even or Odd</a></li>
+        <li><a href="prime.aspx">Check Prime</a></li>
+        <li><a href="reverse.aspx">Reverse a Number</a></li>
+        <li><a href="calculator.aspx">Simple Calculator</a></li>
+    </ul>
+</body>
+</html>
+
+/* factorial.aspx */
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="factorial.aspx.cs" Inherits="factorial" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Factorial Calculator</title>
+</head>
+<body>
+    <h1>Factorial of a Number</h1>
+    <form id="form1" runat="server">
+        Enter Number: <asp:TextBox ID="txtNumber" runat="server"></asp:TextBox>
+        <asp:Button ID="btnCalculate" Text="Calculate" runat="server" OnClick="btnCalculate_Click" />
+        <br />
+        <asp:Label ID="lblResult" runat="server"></asp:Label>
+    </form>
+</body>
+</html>
+
+/* factorial.aspx.cs */
+using System;
+public partial class factorial : System.Web.UI.Page
+{
+    protected void btnCalculate_Click(object sender, EventArgs e)
+    {
+        int number = int.Parse(txtNumber.Text);
+        int result = 1;
+        for (int i = 1; i <= number; i++)
+        {
+            result *= i;
+        }
+        lblResult.Text = "Factorial: " + result;
+    }
+}
+
+/* evenodd.aspx */
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="evenodd.aspx.cs" Inherits="evenodd" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Even or Odd</title>
+</head>
+<body>
+    <h1>Check Even or Odd</h1>
+    <form id="form1" runat="server">
+        Enter Number: <asp:TextBox ID="txtNumber" runat="server"></asp:TextBox>
+        <asp:Button ID="btnCheck" Text="Check" runat="server" OnClick="btnCheck_Click" />
+        <br />
+        <asp:Label ID="lblResult" runat="server"></asp:Label>
+    </form>
+</body>
+</html>
+
+/* evenodd.aspx.cs */
+using System;
+public partial class evenodd : System.Web.UI.Page
+{
+    protected void btnCheck_Click(object sender, EventArgs e)
+    {
+        int number = int.Parse(txtNumber.Text);
+        lblResult.Text = number % 2 == 0 ? "Even" : "Odd";
+    }
+}
+
+/* prime.aspx */
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="prime.aspx.cs" Inherits="prime" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prime Number</title>
+</head>
+<body>
+    <h1>Check Prime Number</h1>
+    <form id="form1" runat="server">
+        Enter Number: <asp:TextBox ID="txtNumber" runat="server"></asp:TextBox>
+        <asp:Button ID="btnCheck" Text="Check" runat="server" OnClick="btnCheck_Click" />
+        <br />
+        <asp:Label ID="lblResult" runat="server"></asp:Label>
+    </form>
+</body>
+</html>
+
+/* prime.aspx.cs */
+using System;
+public partial class prime : System.Web.UI.Page
+{
+    protected void btnCheck_Click(object sender, EventArgs e)
+    {
+        int number = int.Parse(txtNumber.Text);
+        bool isPrime = true;
+        if (number < 2)
+            isPrime = false;
+        for (int i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0)
+            {
+                isPrime = false;
+                break;
+            }
+        }
+        lblResult.Text = isPrime ? "Prime" : "Not Prime";
+    }
+}
+
+/* reverse.aspx */
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="reverse.aspx.cs" Inherits="reverse" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reverse a Number</title>
+</head>
+<body>
+    <h1>Reverse a Number</h1>
+    <form id="form1" runat="server">
+        Enter Number: <asp:TextBox ID="txtNumber" runat="server"></asp:TextBox>
+        <asp:Button ID="btnReverse" Text="Reverse" runat="server" OnClick="btnReverse_Click" />
+        <br />
+        <asp:Label ID="lblResult" runat="server"></asp:Label>
+    </form>
+</body>
+</html>
+
+/* reverse.aspx.cs */
+using System;
+public partial class reverse : System.Web.UI.Page
+{
+    protected void btnReverse_Click(object sender, EventArgs e)
+    {
+        int number = int.Parse(txtNumber.Text);
+        int reversed = 0;
+        while (number > 0)
+        {
+            reversed = reversed * 10 + number % 10;
+            number /= 10;
+        }
+        lblResult.Text = "Reversed Number: " + reversed;
+    }
+}
+
+/* calculator.aspx */
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="calculator.aspx.cs" Inherits="calculator" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+</head>
+<body>
+    <h1>Simple Calculator</h1>
+    <form id="form1" runat="server">
+        Enter Number 1: <asp:TextBox ID="txtNumber1" runat="server"></asp:TextBox><br />
+        Enter Number 2: <asp:TextBox ID="txtNumber2" runat="server"></asp:TextBox><br />
+        Select Operation:
+        <asp:DropDownList ID="ddlOperation" runat="server">
+            <asp:ListItem Value="+">Add</asp:ListItem>
+            <asp:ListItem Value="-">Subtract</asp:ListItem>
+            <asp:ListItem Value="*">Multiply</asp:ListItem>
+            <asp:ListItem Value="/">Divide</asp:ListItem>
+            <asp:ListItem Value="%">Modulus</asp:ListItem>
+        </asp:DropDownList>
+        <asp:Button ID="btnCalculate" Text="Calculate" runat="server" OnClick="btnCalculate_Click" />
+        <br />
+        <asp:Label ID="lblResult" runat="server"></asp:Label>
+    </form>
+</body>
+</html>
+
+/* calculator.aspx.cs */
+using System;
+public partial class calculator : System.Web.UI.Page
+{
+    protected void btnCalculate_Click(object sender, EventArgs e)
+    {
+        double num1 = double.Parse(txtNumber1.Text);
+        double num2 = double.Parse(txtNumber2.Text);
+        string operation = ddlOperation.SelectedValue;
+        double result = 0;
+        switch (operation)
+        {
+            case "+":
+                result = num1 + num2;
+                break;
+            case "-":
+                result = num1 - num2;
+                break;
+            case "*":
+                result = num1 * num2;
+                break;
+            case "/":
+                result = num1 / num2;
+                break;
+            case "%":
+                result = num1 % num2;
+                break;
+        }
+        lblResult.Text = "Result: " + result;
+    }
+}
